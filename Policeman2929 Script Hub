@@ -1,0 +1,537 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Script Hub",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Loading Script Hub",
+   LoadingSubtitle = "by policeman2929",
+   ShowText = "Script Hub", -- for mobile users to unhide rayfield, change if you'd like
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = False,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Script Hub"
+   },
+
+   Discord = {
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local MainTab = Window:CreateTab("Scripts", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Universal Scripts")
+
+Rayfield:Notify({
+   Title = "Script Status",
+   Content = "Script Executed Succesfully",
+   Duration = 5,
+   Image = nil,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Adonis Bypass",
+   Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ReviloNeyugn/Scripts/refs/heads/main/Adonis%20Bypass"))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Dex",
+   Callback = function()
+       loadstring(game:HttpGet("https://github.com/AZYsGithub/DexPlusPlus/releases/latest/download/out.lua"))()
+        print("executed Dex")
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Infinite Yield",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+        print("executed iy")
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Aimlock",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/Aepione/Prensado/refs/heads/main/Prensado%20camlock"))()
+        print("executed aimlock")
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Ink Game Ginxys (Includes fullbright, Instant Proximity Prompts, and touch fling)",
+   Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/Ginxys/Ink-Game/refs/heads/main/Script.lua"))()
+        print("executed Ginxys Script")
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Autoclicker",
+   Callback = function()
+        getgenv().key = "Hostile"
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Hosvile/The-telligence/main/MC%20KSystem%202"))()
+        print("executed autoclicker")
+   end,
+})
+
+local SAUTTab = Window:CreateTab("SAUT", nil) -- Title, Image
+local AutoClickSection = SAUTTab:CreateSection("AutoClick Dropper")
+
+local Button = SAUTTab:CreateButton({
+   Name = "Auto Click Aftertale",
+   Callback = function()
+        while true do
+            wait(0.1)
+        fireclickdetector(workspace["Sans AU Tycoon"].Tycoons["Aftertale Sans Tycoon"].PurchasedObjects.Mine.Clicker.ClickDetector)
+        end
+        print("executed auto click aftertale")
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Auto Click Dusttale",
+   Callback = function()
+        while true do
+            wait(0.1)
+        fireclickdetector(workspace["Sans AU Tycoon"].Tycoons["Dusttale Sans Tycoon"].PurchasedObjects.Mine.Clicker.ClickDetector)
+        end
+        print("executed auto click dusttale")
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Auto Click Underfell",
+   Callback = function()
+        while true do
+            wait(0.1)
+        fireclickdetector(workspace["Sans AU Tycoon"].Tycoons["Underfell Sans Tycoon"].PurchasedObjects.Mine.Clicker.ClickDetector)
+        end
+        print("executed auto click underfell")
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Auto Click Underswap",
+   Callback = function()
+        while true do
+            wait(0.1)
+        fireclickdetector(workspace["Sans AU Tycoon"].Tycoons["Underswap Sans Tycoon"].PurchasedObjects.Mine.Clicker.ClickDetector)
+        end
+        print("executed auto click underswap")
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Auto Click Undertale",
+   Callback = function()
+        while true do
+            wait(0.1)
+        fireclickdetector(workspace["Sans AU Tycoon"].Tycoons["Undertale Sans Tycoon"].PurchasedObjects.Mine.Clicker.ClickDetector)
+        end
+        print("executed auto click undertale")
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Auto Click Outertale",
+   Callback = function()
+        while true do
+            wait(0.1)
+        fireclickdetector(workspace["Sans AU Tycoon"].Tycoons["Outertale Sans Tycoon"].PurchasedObjects.Mine.Clicker.ClickDetector)
+        end
+        print("executed auto click outertale")
+   end,
+})
+
+local Section = SAUTTab:CreateSection("Main Teleports")
+
+local Button = SAUTTab:CreateButton({
+   Name = "Steal from all",
+   Callback = function()
+        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local OriginalCFrame = hrp.CFrame
+            wait(0.5)
+        local giver = CFrame.new(137, 1364, 110)
+        hrp.CFrame = giver
+            wait(0.5)
+        local giver = CFrame.new(174, 1363, -19)
+        hrp.CFrame = giver
+            wait(0.5)
+        local giver = CFrame.new(-19, 1363, -175)
+        hrp.CFrame = giver
+            wait(0.5)
+        local giver = CFrame.new(-137, 1363, -110)
+        hrp.CFrame = giver
+            wait(0.5)
+        local giver = CFrame.new(-174, 1365, 18)
+        hrp.CFrame = giver
+            wait(0.5)
+        local giver = CFrame.new(18, 1363, 174)
+        hrp.CFrame = giver
+            wait(0.5)
+        hrp.CFrame = OriginalCFrame
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Aftertale",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local tycoonCFrame = CFrame.new(128, 1363, 129)
+        hrp.CFrame = tycoonCFrame
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Dusttale",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local tycoonCFrame = CFrame.new(-1, 1363, -181)
+        hrp.CFrame = tycoonCFrame
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Underfell",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local tycoonCFrame = CFrame.new(181, 1363, 0)
+        hrp.CFrame = tycoonCFrame
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Underswap",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local tycoonCFrame = CFrame.new(-181, 1363, -4)
+        hrp.CFrame = tycoonCFrame
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Undertale",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local tycoonCFrame = CFrame.new(-1, 1363, 178)
+        hrp.CFrame = tycoonCFrame
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Outertale",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local tycoonCFrame = CFrame.new(-125, 1363, -127)
+        hrp.CFrame = tycoonCFrame
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Nightmare",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(-1, 1716, 21)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Negative",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(-545, 1389, 600)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Remove Morph",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local originalCFrame = hrp.CFrame
+        local RM = CFrame.new(61, 1363, 30)
+        hrp.CFrame = RM
+            wait(0.25)
+        hrp.CFrame = originalCFrame
+   end,
+})
+
+local Section = SAUTTab:CreateSection("Coins")
+
+local Button = SAUTTab:CreateButton({
+   Name = "Collect All Coins",
+   Callback = function()
+      local coinsFolder = workspace:FindFirstChild("Coins2")
+      if coinsFolder then
+         local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+         if hrp then
+            local OriginalCFrame = hrp.CFrame
+            for _, coin in pairs(coinsFolder:GetChildren()) do
+               if coin.Name == "Union" then
+                  -- Teleport to coin
+                  hrp.CFrame = coin.CFrame
+                  task.wait(0.2) -- short delay so it visits them one by one
+                  hrp.CFrame = OriginalCFrame
+               end
+            end
+         end
+      end
+   end,
+})
+
+
+local CtoggleEnabled = false
+
+local Toggle = SAUTTab:CreateToggle({
+   Name = "Auto Collect Coins",
+   CurrentValue = false,
+   Flag = "CoinToggle",
+   Callback = function(Value)
+      CtoggleEnabled = Value
+
+      if CtoggleEnabled then
+         task.spawn(function()
+            while CtoggleEnabled do
+               local coinsFolder = workspace:FindFirstChild("Coins2")
+               if coinsFolder then
+                  for _, coin in pairs(coinsFolder:GetChildren()) do
+                     if coin.Name == "Union" then
+                        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+                        local OriginalCFrame = hrp.CFrame
+                        if hrp then
+                           hrp.CFrame = coin.CFrame
+                           task.wait(0.2) -- short delay between teleports
+                           hrp.CFrame = OriginalCFrame
+                        end
+                     end
+                  end
+               end
+
+               task.wait(1) -- check again every second for new coins
+            end
+         end)
+      end
+   end,
+})
+
+local NCtoggleEnabled = false
+
+local Toggle = SAUTTab:CreateToggle({
+   Name = "Notify When Coins Spawn",
+   CurrentValue = false,
+   Flag = "CoinFolderNotifyToggle",
+   Callback = function(Value)
+      NCtoggleEnabled = Value
+
+      if NCtoggleEnabled then
+         task.spawn(function()
+            -- Watch workspace for new children
+            workspace.ChildAdded:Connect(function(child)
+               if NCtoggleEnabled and child.Name == "Coins2" then
+                  Rayfield:Notify({
+                     Title = "Coins Spawned!",
+                     Content = "Coins have spawned. You can teleport to all the coins in the GUI.",
+                     Duration = 5, -- seconds
+                     Image = nil, -- optional image ID
+                  })
+               end
+            end)
+
+            -- Safety loop so the toggle can be turned off cleanly
+            while toggleEnabled do
+               task.wait(1)
+            end
+         end)
+      end
+   end,
+})
+
+
+local Section = SAUTTab:CreateSection("Aftertale Secrets")
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Fatal Error",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(227, 1632, 731)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Syno",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(225, 1632, 980)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Section = SAUTTab:CreateSection("Underfell Secrets")
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Insanity Fell",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(-1156, 1546, 45)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Dust Fell",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(9, 1384, 436)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Section = SAUTTab:CreateSection("Dusttale Secrets")
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Satsujinki/Jugokunogoka",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(155, 1364, -32414)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Heroes Time Trio",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(441, 1487, -91)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Dustbelief",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(440, 1487, -341)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Section = SAUTTab:CreateSection("Outertale Secrets")
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Outer Dust",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(11, 1384, -566)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Outer Insanity",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(-1406, 1546, 45)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Outer Killer",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(-9986, 1688, 1645)
+        hrp.CFrame = Secret
+   end,
+})
+
+
+local Section = SAUTTab:CreateSection("Underswap Secrets")
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Distrust",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(-606, 1411, -282)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Revenge",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(-854, 1411, -282)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Dusttrust",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(-1838, 2302, 1445)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Section = SAUTTab:CreateSection("Undertale Secrets")
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Horror",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(140, 1758, 373)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Killer",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(391, 1614, 396)
+        hrp.CFrame = Secret
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Insanity",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = CFrame.new(-906, 1546, 49)
+        hrp.CFrame = Secret
+   end,
+})
+
+local MiscTab = Window:CreateTab("Misc", nil) -- Title, Image
+local MainSection = MiscTab:CreateSection("Main")
+
+local Button = MiscTab:CreateButton({
+   Name = "Unload/Destroy Script",
+   Callback = function()
+       Rayfield:Destroy()
+   end,
+})
