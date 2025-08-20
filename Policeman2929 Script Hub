@@ -14,7 +14,7 @@ local Window = Rayfield:CreateWindow({
    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
 
    ConfigurationSaving = {
-      Enabled = False,
+      Enabled = false,
       FolderName = nil, -- Create a custom folder for your hub/game
       FileName = "Script Hub"
    },
@@ -166,12 +166,13 @@ local Button = SAUTTab:CreateButton({
 
 local Section = SAUTTab:CreateSection("Main Teleports")
 
+local Paragraph = SAURTab:CreateParagraph({Title = "Teleport Info", Content = "If a secret teleport forces you into the void, then the secert has not been loaded in yet; secrets have to be loaded in if you want to teleport to them and not get forced into the void."})
+
 local Button = SAUTTab:CreateButton({
    Name = "Steal from all",
    Callback = function()
         local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local OriginalCFrame = hrp.CFrame
-            wait(0.5)
         local giver = CFrame.new(137, 1364, 110)
         hrp.CFrame = giver
             wait(0.5)
@@ -191,12 +192,14 @@ local Button = SAUTTab:CreateButton({
         hrp.CFrame = giver
             wait(0.5)
         hrp.CFrame = OriginalCFrame
+        print("executed steal from all")
    end,
 })
 
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Aftertale",
    Callback = function()
+        print("executed teleport to aftertale")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local tycoonCFrame = CFrame.new(128, 1363, 129)
         hrp.CFrame = tycoonCFrame
@@ -206,6 +209,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Dusttale",
    Callback = function()
+        print("executed teleport to dusttale")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local tycoonCFrame = CFrame.new(-1, 1363, -181)
         hrp.CFrame = tycoonCFrame
@@ -215,6 +219,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Underfell",
    Callback = function()
+        print("executed teleport to underfell")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local tycoonCFrame = CFrame.new(181, 1363, 0)
         hrp.CFrame = tycoonCFrame
@@ -224,6 +229,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Underswap",
    Callback = function()
+        print("executed teleport to underswap")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local tycoonCFrame = CFrame.new(-181, 1363, -4)
         hrp.CFrame = tycoonCFrame
@@ -233,6 +239,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Undertale",
    Callback = function()
+        print("executed teleport to undertale")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local tycoonCFrame = CFrame.new(-1, 1363, 178)
         hrp.CFrame = tycoonCFrame
@@ -242,6 +249,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Outertale",
    Callback = function()
+        print("executed teleport to outertale")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local tycoonCFrame = CFrame.new(-125, 1363, -127)
         hrp.CFrame = tycoonCFrame
@@ -249,26 +257,79 @@ local Button = SAUTTab:CreateButton({
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Nightmare",
+   Name = "Get Nightmare Morph",
    Callback = function()
+        print("executed get nightmare morph")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(-1, 1716, 21)
+        local OriginalCFrame = hrp.CFrame
+        local Secret = CFrame.new(-2, 1718, 28)
         hrp.CFrame = Secret
+            wait(0.25)
+        hrp.CFrame = OriginalCFrame
    end,
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Negative",
+   Name = "Get Negative Morph",
    Callback = function()
+        print("executed get negative morph")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(-545, 1389, 600)
+        local OriginalCFrame = hrp.CFrame
+        local Secret = CFrame.new(-551, 1391, 593)
         hrp.CFrame = Secret
+            wait(0.25)
+       hrp.CFrame = OriginalCFrame
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Get All Non-Kick Halloween Tools",
+   Callback = function()
+        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local OriginalCFrame = hrp.CFrame
+        local haltool = CFrame.new(494, 4337, -8557)
+        hrp.CFrame = haltool
+            wait(0.25)
+        local haltool = CFrame.new(494, 4338, -8532)
+        hrp.CFrame = haltool
+            wait(0.25)
+        local haltool = CFrame.new(496, 4337, -8483)
+        hrp.CFrame = haltool
+            wait(0.25)
+        local haltool = CFrame.new(496, 4336, -8409)
+        hrp.CFrame = haltool
+            wait(0.25)
+        local haltool = CFrame.new(494, 4336, -8381)
+        hrp.CFrame = haltool
+            wait(0.25)
+        local haltool = CFrame.new(493, 4337, -8357)
+        hrp.CFrame = haltool
+            wait(0.25)
+        local haltool = CFrame.new(494, 4338, -8332)
+        hrp.CFrame = haltool
+            wait(0.25)
+        local haltool = CFrame.new(494, 4337, -8305)
+        hrp.CFrame = haltool
+            wait(0.25)
+        hrp.CFrame = OriginalCFrame
+        print("executed get all halloween tools")
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Teleport to Spawn",
+   Callback = function()
+        print("executed teleport to spawn")
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local spawn = CFrame.new(-1, 1363, -2)
+        hrp.CFrame = spawn
    end,
 })
 
 local Button = SAUTTab:CreateButton({
    Name = "Remove Morph",
    Callback = function()
+        print("executed remove morph")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local originalCFrame = hrp.CFrame
         local RM = CFrame.new(61, 1363, 30)
@@ -283,6 +344,7 @@ local Section = SAUTTab:CreateSection("Coins")
 local Button = SAUTTab:CreateButton({
    Name = "Collect All Coins",
    Callback = function()
+      print("executed collect all coins")
       local coinsFolder = workspace:FindFirstChild("Coins2")
       if coinsFolder then
          local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
@@ -309,6 +371,7 @@ local Toggle = SAUTTab:CreateToggle({
    CurrentValue = false,
    Flag = "CoinToggle",
    Callback = function(Value)
+      print("executed toggle auto collect coins")
       CtoggleEnabled = Value
 
       if CtoggleEnabled then
@@ -336,6 +399,24 @@ local Toggle = SAUTTab:CreateToggle({
    end,
 })
 
+local function TeleportToCoins()
+    local coinsFolder = workspace:FindFirstChild("Coins2")
+      if coinsFolder then
+         local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+         if hrp then
+            local OriginalCFrame = hrp.CFrame
+            for _, coin in pairs(coinsFolder:GetChildren()) do
+               if coin.Name == "Union" then
+                  -- Teleport to coin
+                  hrp.CFrame = coin.CFrame
+                  task.wait(0.2) -- short delay so it visits them one by one
+                  hrp.CFrame = OriginalCFrame
+               end
+            end
+         end
+      end
+end
+
 local NCtoggleEnabled = false
 
 local Toggle = SAUTTab:CreateToggle({
@@ -343,6 +424,7 @@ local Toggle = SAUTTab:CreateToggle({
    CurrentValue = false,
    Flag = "CoinFolderNotifyToggle",
    Callback = function(Value)
+      print("executed toggle notify when coins spawn")
       NCtoggleEnabled = Value
 
       if NCtoggleEnabled then
@@ -353,14 +435,23 @@ local Toggle = SAUTTab:CreateToggle({
                   Rayfield:Notify({
                      Title = "Coins Spawned!",
                      Content = "Coins have spawned. You can teleport to all the coins in the GUI.",
-                     Duration = 5, -- seconds
+                     Duration = 10, -- seconds
                      Image = nil, -- optional image ID
+                     Actions = {
+                        Teleport = {
+                            Name = "Teleport to Coins",
+                            Callback = function()
+                                TeleportToCoins()
+                                print("executed teleport to all coins")
+                            end,
+                        }
+                     }
                   })
                end
             end)
 
             -- Safety loop so the toggle can be turned off cleanly
-            while toggleEnabled do
+            while NCtoggleEnabled do
                task.wait(1)
             end
          end)
@@ -374,6 +465,7 @@ local Section = SAUTTab:CreateSection("Aftertale Secrets")
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Fatal Error",
    Callback = function()
+        print("executed teleport to fatal error")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(227, 1632, 731)
         hrp.CFrame = Secret
@@ -383,6 +475,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Syno",
    Callback = function()
+        print("executed teleport to syno")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(225, 1632, 980)
         hrp.CFrame = Secret
@@ -394,6 +487,7 @@ local Section = SAUTTab:CreateSection("Underfell Secrets")
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Insanity Fell",
    Callback = function()
+        print("executed teleport to insanity fell")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(-1156, 1546, 45)
         hrp.CFrame = Secret
@@ -403,6 +497,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Dust Fell",
    Callback = function()
+        print("executed teleport to dust fell")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(9, 1384, 436)
         hrp.CFrame = Secret
@@ -414,6 +509,7 @@ local Section = SAUTTab:CreateSection("Dusttale Secrets")
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Satsujinki/Jugokunogoka",
    Callback = function()
+        print("executed teleport to satsujinki/jugokunogoka")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(155, 1364, -32414)
         hrp.CFrame = Secret
@@ -423,6 +519,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Heroes Time Trio",
    Callback = function()
+        print("executed teleport to heroes time trio")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(441, 1487, -91)
         hrp.CFrame = Secret
@@ -432,6 +529,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Dustbelief",
    Callback = function()
+        print("executed teleport to dustbelief")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(440, 1487, -341)
         hrp.CFrame = Secret
@@ -443,6 +541,7 @@ local Section = SAUTTab:CreateSection("Outertale Secrets")
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Outer Dust",
    Callback = function()
+       print("executed teleport to outer dust")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(11, 1384, -566)
         hrp.CFrame = Secret
@@ -452,6 +551,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Outer Insanity",
    Callback = function()
+        print("executed teleport to outer insanity")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(-1406, 1546, 45)
         hrp.CFrame = Secret
@@ -461,6 +561,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Outer Killer",
    Callback = function()
+        print("executed teleport to outer killer")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(-9986, 1688, 1645)
         hrp.CFrame = Secret
@@ -473,6 +574,7 @@ local Section = SAUTTab:CreateSection("Underswap Secrets")
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Distrust",
    Callback = function()
+        print("executed teleport to "distrust)
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(-606, 1411, -282)
         hrp.CFrame = Secret
@@ -482,6 +584,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Revenge",
    Callback = function()
+        print("executed teleport to revenge")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(-854, 1411, -282)
         hrp.CFrame = Secret
@@ -491,6 +594,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Dusttrust",
    Callback = function()
+        print("executed teleport to dusttrust")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(-1838, 2302, 1445)
         hrp.CFrame = Secret
@@ -502,6 +606,7 @@ local Section = SAUTTab:CreateSection("Undertale Secrets")
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Horror",
    Callback = function()
+        print("executed teleport to horror")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(140, 1758, 373)
         hrp.CFrame = Secret
@@ -511,6 +616,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Killer",
    Callback = function()
+        print("executed teleport to killer")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(391, 1614, 396)
         hrp.CFrame = Secret
@@ -520,6 +626,7 @@ local Button = SAUTTab:CreateButton({
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Insanity",
    Callback = function()
+        print("executed teleport to insanity")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(-906, 1546, 49)
         hrp.CFrame = Secret
@@ -533,5 +640,6 @@ local Button = MiscTab:CreateButton({
    Name = "Unload/Destroy Script",
    Callback = function()
        Rayfield:Destroy()
+        print("executed destroy script")
    end,
 })
