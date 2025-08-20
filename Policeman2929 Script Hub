@@ -574,7 +574,7 @@ local Section = SAUTTab:CreateSection("Underswap Secrets")
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Distrust",
    Callback = function()
-        print("executed teleport to "distrust)
+        print("executed teleport to distrust")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local Secret = CFrame.new(-606, 1411, -282)
         hrp.CFrame = Secret
