@@ -166,7 +166,7 @@ local Button = SAUTTab:CreateButton({
 
 local Section = SAUTTab:CreateSection("Main Teleports")
 
-local Paragraph = SAURTab:CreateParagraph({Title = "Teleport Info", Content = "If a secret teleport forces you into the void, then the secert has not been loaded in yet; secrets have to be loaded in if you want to teleport to them and not get forced into the void."})
+local Paragraph = SAUTTab:CreateParagraph({Title = "Teleport Info", Content = "If a secret teleport forces you into the void, then the secert has not been loaded in yet; secrets have to be loaded in if you want to teleport to them and not get forced into the void."})
 
 local Button = SAUTTab:CreateButton({
    Name = "Steal from all",
