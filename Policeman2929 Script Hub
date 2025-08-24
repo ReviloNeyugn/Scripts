@@ -777,6 +777,7 @@ local Button = SAUTTab:CreateButton({
             firetouchinterest(hrp, Secret, 0)
                 wait(0.1)
             firetouchinterest(hrp, Secret, 1)
+        end
    end,
 })
 
