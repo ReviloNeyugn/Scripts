@@ -37,7 +37,7 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local MainTab = Window:CreateTab("Scripts", nil) -- Title, Image
+local MainTab = Window:CreateTab("Main", nil) -- Title, Image
 local MainSection = MainTab:CreateSection("Universal Scripts")
 
 Rayfield:Notify({
@@ -95,6 +95,43 @@ local Button = MainTab:CreateButton({
    end,
 })
 
+local Section = MainTab:CreateSection("Player Attributes")
+
+local Slider = MainTab:CreateSlider({
+   Name = "Walkspeed",
+   Range = {16, 300},
+   Increment = 1,
+   Suffix = "Walkspeed",
+   CurrentValue = 16,
+   Flag = "WS", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+       local player = game.Players.LocalPlayer
+        local char = player.Character or player.CharacterAdded:Wait()
+        local hum = char:FindFirstChildOfClass("Humanoid")
+
+        if hum then
+            hum.WalkSpeed = Value
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "Jumppower",
+   Range = {50, 500},
+   Increment = 1,
+   Suffix = "Jumppower",
+   CurrentValue = 50,
+   Flag = "JP", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+       local player = game.Players.LocalPlayer
+        local char = player.Character or player.CharacterAdded:Wait()
+        local hum = char:FindFirstChildOfClass("Humanoid")
+
+        if hum then
+           hum.UseJumpPower = true
+            hum.JumpPower = Value
+   end,
+})
+    
 local SAUTTab = Window:CreateTab("SAUT", nil) -- Title, Image
 local AutoClickSection = SAUTTab:CreateSection("AutoClick Dropper")
 
@@ -165,8 +202,6 @@ local Button = SAUTTab:CreateButton({
 })
 
 local Section = SAUTTab:CreateSection("Main Teleports")
-
-local Paragraph = SAUTTab:CreateParagraph({Title = "Teleport Info", Content = "If a secret teleport forces you into the void, then the secert has not been loaded in yet; secrets have to be loaded in if you want to teleport to them and not get forced into the void."})
 
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Aftertale",
@@ -303,7 +338,7 @@ local Toggle = SAUTTab:CreateToggle({
                         local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
                         if hrp then
                            firetouchinterest(hrp, coin, 0)
-                           task.wait()
+                           task.wait(0.05)
                            firetouchinterest(hrp, coin, 1)
                            task.wait(0.1)
                         end
@@ -311,7 +346,7 @@ local Toggle = SAUTTab:CreateToggle({
                   end
                end
 
-               task.wait(1) -- check again every second for new coins
+               task.wait(1)
             end
          end)
       end
@@ -337,6 +372,7 @@ local function TeleportToCoins()
 end
 
 local NCtoggleEnabled = false
+local coinConnection -- store the ChildAdded connection
 
 local Toggle = SAUTTab:CreateToggle({
    Name = "Notify When Coins Spawn",
@@ -347,27 +383,29 @@ local Toggle = SAUTTab:CreateToggle({
       NCtoggleEnabled = Value
 
       if NCtoggleEnabled then
-         task.spawn(function()
-            -- Watch workspace for new children
-            workspace.ChildAdded:Connect(function(child)
+         -- Only connect if we don't already have one
+         if not coinConnection then
+            coinConnection = workspace.ChildAdded:Connect(function(child)
                if NCtoggleEnabled and child.Name == "Coins2" then
                   Rayfield:Notify({
                      Title = "Coins Spawned!",
                      Content = "Coins have spawned. You can collect all the coins in the GUI.",
-                     Duration = 10, -- seconds
-                     Image = nil, -- optional image ID
+                     Duration = 10,
+                     Image = nil,
                   })
                end
             end)
-
-            -- Safety loop so the toggle can be turned off cleanly
-            while NCtoggleEnabled do
-               task.wait(1)
-            end
-         end)
+         end
+      else
+         -- Disconnect if it exists
+         if coinConnection then
+            coinConnection:Disconnect()
+            coinConnection = nil
+         end
       end
    end,
 })
+
 
 local Section = SAUTTab:CreateSection("Steal")
 
@@ -403,7 +441,51 @@ local Button = SAUTTab:CreateButton({
    end,
 })
 
-local Section = SAUTTab:CreateSection("Halloween")
+local ASFA = false
+
+local Toggle = SAUTTab:CreateToggle({
+    Name = "Auto Steal From All",
+    CurrentValue = false,
+    Flag = "ASFA",
+    Callback = function(Value)
+        ASFA = Value
+
+        if ASFA then
+            task.spawn(function()
+                while ASFA do
+                    local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+
+                    if hrp then
+                        -- List of tycoons
+                        local tycoonNames = {
+                            "Aftertale Sans Tycoon",
+                            "Underfell Sans Tycoon",
+                            "Undertale Sans Tycoon",
+                            "Underswap Sans Tycoon",
+                            "Dusttale Sans Tycoon",
+                            "Outertale Sans Tycoon",
+                        }
+
+                        -- Loop through each giver
+                        for _, name in ipairs(tycoonNames) do
+                            local giver = workspace["Sans AU Tycoon"].Tycoons[name].Essentials:FindFirstChild("Giver")
+                            if giver then
+                                firetouchinterest(hrp, giver, 0)
+                                task.wait(0.1)
+                                firetouchinterest(hrp, giver, 1)
+                            end
+                        end
+                    end
+
+                    task.wait(60)
+                end
+            end)
+        end
+    end,
+})
+
+        
+local Section = SAUTTab:CreateSection("The Core")
 
 local Button = SAUTTab:CreateButton({
    Name = "Teleport to Halloween Morphs",
@@ -420,6 +502,10 @@ local Button = SAUTTab:CreateButton({
    Callback = function()
         local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
         local haltool = workspace.Idk.DoodleSphere["The Core"].Halloween["2020"].EvilFate.EF1["Morph Pillar"]
+            if not haltool then
+                haltool = workspace.Idk.DoodleSphere["The Core"].Halloween["2020"].EvilFate.EF2
+            end
+        
         firetouchinterest(hrp, haltool, 0)
             wait(0.1)
         firetouchinterest(hrp, haltool, 1)
@@ -452,6 +538,25 @@ local Button = SAUTTab:CreateButton({
             wait(0.1)
         firetouchinterest(hrp, haltool, 1)
         print("executed get all halloween tools")
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Get All Project Tools",
+   Callback = function()
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local PJT = workspace.Idk.DoodleSphere["The Core"]["Communication Server Events + Anniversary"].Morphs.Anniversary["2ndAnniversary"].PJK["Sans Morph"]["Morph Pillar"]
+        firetouchinterest(hrp, PJT, 0)
+            wait(0.1)
+        firetouchinterest(hrp, PJT, 1)
+        local PJT = workspace.Idk.DoodleSphere["The Core"]["Communication Server Events + Anniversary"].Morphs.Anniversary["2ndAnniversary"].PJD.Morph["Morph Pillar"]
+        firetouchinterest(hrp, PJT, 0)
+            wait(0.1)
+        firetouchinterest(hrp, PJT, 1)
+        local PJT = workspace.Idk.DoodleSphere["The Core"]["Communication Server Events + Anniversary"].Morphs.Anniversary["2ndAnniversary"].PJH["Sans Morph"]["Morph Pillar"]
+        firetouchinterest(hrp, PJT, 0)
+            wait(0.1)
+        firetouchinterest(hrp, PJT, 1)
    end,
 })
 
@@ -493,47 +598,105 @@ local Button = SAUTTab:CreateButton({
    end,
 })
 
+local Paragraph = SAUTTab:CreateParagraph({Title = "Secret Info", Content = "If you get a callback error when trying to execute get {secret} morph/tools then the morph is not loaded in and it wont work until it is loaded in."})
+
 local Section = SAUTTab:CreateSection("Aftertale Secrets")
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Fatal Error",
+   Name = "Get Fatal Error Morph/Tools",
    Callback = function()
-        print("executed teleport to fatal error")
+        print("executed Get Fatal Error Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(227, 1632, 731)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Aftertale Sans Tycoon"].PurchasedObjects.BadTimeSansMorph["_Fatal Error Sans"].SansMorph["Morph Pillar"]
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Syno",
+   Name = "Get Syno Morph/Tools",
    Callback = function()
-        print("executed teleport to syno")
+        print("executed Get Syno Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(225, 1632, 980)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Aftertale Sans Tycoon"].PurchasedObjects.Wall3["Syno Sans"]["Syno Sans Morph"]["Morph Pillar"]
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Get Hyper After Dust Morph/Tools",
+   Callback = function()
+        print("executed Get Hyper After Dust Morph/Tools")
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Aftertale Sans Tycoon"].PurchasedObjects["AfterDust Sans Morph"]["Morph Pillar"]
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Section = SAUTTab:CreateSection("Underfell Secrets")
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Insanity Fell",
+   Name = "Get Insanity Fell Morph/Tools",
    Callback = function()
-        print("executed teleport to insanity fell")
+        print("executed Get Insanity Fell Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(-1156, 1546, 45)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Underfell Sans Tycoon"].PurchasedObjects.Shortcut.InsanityFell["InsanityFell Sans Morph"].Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Dust Fell",
+   Name = "Get Insanity Fell Hard Mode Morph",
    Callback = function()
-        print("executed teleport to dust fell")
+        print("executed Get Insanity Fell Hard Mode Morph")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(9, 1384, 436)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Underfell Sans Tycoon"].PurchasedObjects["InsanityFell Sans [HARDMODE] Morph"]["Morph Pillar"]
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Get Dust Fell Morph/Tools",
+   Callback = function()
+        print("executed Get Dust Fell Morph/Tools")
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Underfell Sans Tycoon"].PurchasedObjects.DustFell["DustFell Sans"].Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Get Hyper Dust Fell Morph/Tools",
+   Callback = function()
+        print("executed Get Hyper Dust Fell Morph/Tools")
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Underfell Sans Tycoon"].PurchasedObjects.HyperDustFellSansMorph.Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Get Corrupted Underfell Morph/Tools",
+   Callback = function()
+        print("executed Get Corrupted Underfell Morph/Tools")
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Underfell Sans Tycoon"].PurchasedObjects.XEventUFSansMorph["Morph Pillar"]
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
@@ -590,32 +753,67 @@ local Button = SAUTTab:CreateButton({
 local Section = SAUTTab:CreateSection("Outertale Secrets")
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Outer Dust",
+   Name = "Get Outer Dust Morph/Tools",
    Callback = function()
-       print("executed teleport to outer dust")
+       print("executed Get Outer Dust Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(11, 1384, -566)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Outertale Sans Tycoon"].PurchasedObjects.OuterDust["OuterDust Sans"].Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Outer Insanity",
+   Name = "Get Hyper Outer Dust Morph/Tools",
    Callback = function()
-        print("executed teleport to outer insanity")
+       print("executed Get Hyper Outer Dust Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(-1406, 1546, 45)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Underfell Sans Tycoon"].DropColor.Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Outer Killer",
+   Name = "Get Outer Insanity Morph/Tools",
    Callback = function()
-        print("executed teleport to outer killer")
+        print("executed Get Outer Insanity Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(-9986, 1688, 1645)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Outertale Sans Tycoon"].PurchasedObjects.Shortcut.OuterInsanity["OuterInsanity Sans Morph"].Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Get Outer Insanity Hard Mode Morph",
+   Callback = function()
+        print("executed Get Outer Insanity Hard Mode Morph")
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Outertale Sans Tycoon"].PurchasedObjects["OuterInsanity Sans [HARDMODE] Morph"]["Morph Pillar"]
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
+   end,
+})
+
+local Button = SAUTTab:CreateButton({
+   Name = "Get Outer Killer Morph/Tools",
+   Callback = function()
+        print("executed Get Outer Killer Morph/Tools")
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Outertale Sans Tycoon"].PurchasedObjects["Galactic Realignment"]["StarKiller Map"].HBOK1["Morph Pillar"]
+        if not Secret then
+            Secret = workspace["Sans AU Tycoon"].Tycoons["Outertale Sans Tycoon"].PurchasedObjects["Galactic Realignment"]["StarKiller Map"].HBOK2["Morph Pillar"]
+        end
+
+        if Secret then
+            firetouchinterest(hrp, Secret, 0)
+                wait(0.1)
+            firetouchinterest(hrp, Secret, 1)
    end,
 })
 
@@ -623,67 +821,91 @@ local Button = SAUTTab:CreateButton({
 local Section = SAUTTab:CreateSection("Underswap Secrets")
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Distrust",
+   Name = "Get Distrust Morph/Tools",
    Callback = function()
-        print("executed teleport to distrust")
+        print("executed Get Distrust Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(-606, 1411, -282)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Underswap Sans Tycoon"].PurchasedObjects.HotdogStand["Judgement Hall [Distrust]"]["Distrust Sans"].Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Revenge",
+   Name = "Get Revenge Morph/Tools",
    Callback = function()
-        print("executed teleport to revenge")
+        print("executed Get Revenge Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(-854, 1411, -282)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Underswap Sans Tycoon"].PurchasedObjects.HotdogStand["Judgement Hall [Revenge]"]["Revenge Sans"].Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Dusttrust",
+   Name = "Get Dusttrust Morph/Tools",
    Callback = function()
-        print("executed teleport to dusttrust")
+        print("executed Get Dusttrust Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(-1838, 2302, 1445)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Underswap Sans Tycoon"].PurchasedObjects.DustTrust.Purchases.Morph.Morph
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Section = SAUTTab:CreateSection("Undertale Secrets")
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Horror",
+   Name = "Get Horror Morph/Tools",
    Callback = function()
-        print("executed teleport to horror")
+        print("executed Get Horror Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(140, 1758, 373)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Undertale Sans Tycoon"].PurchasedObjects.Axe.MapOfHorrorSans.SansMorph.Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Killer",
+   Name = "Get Killer Morph/Tools",
    Callback = function()
-        print("executed teleport to killer")
+        print("executed Get Killer Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(391, 1614, 396)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Undertale Sans Tycoon"].PurchasedObjects.Wall3["Killer's Map"]["Killer Sans"].Union
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
 local Button = SAUTTab:CreateButton({
-   Name = "Teleport to Insanity",
+   Name = "Get Insanity Morph/Tools",
    Callback = function()
-        print("executed teleport to insanity")
+        print("executed Get Insanity Morph/Tools")
        local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local Secret = CFrame.new(-906, 1546, 49)
-        hrp.CFrame = Secret
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Undertale Sans Tycoon"].PurchasedObjects.Wall3["Insanity Sans Map"]["Insanity Sans Morph"].Head
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
    end,
 })
 
+local Button = SAUTTab:CreateButton({
+   Name = "Get Insanity Hard Mode Morph",
+   Callback = function()
+        print("executed Get Insanity Hard Mode Morph")
+       local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local Secret = workspace["Sans AU Tycoon"].Tycoons["Undertale Sans Tycoon"].PurchasedObjects["Insanity Sans [HARDMODE] Morph"]["Morph Pillar"]
+        firetouchinterest(hrp, Secret, 0)
+            wait(0.1)
+        firetouchinterest(hrp, Secret, 1)
+   end,
+})
+    
 local MiscTab = Window:CreateTab("Misc", nil) -- Title, Image
 local MainSection = MiscTab:CreateSection("Main")
 
