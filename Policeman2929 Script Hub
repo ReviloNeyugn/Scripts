@@ -51,6 +51,7 @@ local Button = MainTab:CreateButton({
    Name = "Adonis Bypass",
    Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/ReviloNeyugn/Scripts/refs/heads/main/Adonis%20Bypass"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/main/Source.lua",true))()
    end,
 })
 
@@ -128,16 +129,16 @@ local Toggle = SAUTTab:CreateToggle({
    end,
 })
 
-local ACADTToggleEnabled = false
+local ACDTToggleEnabled = false
 
 local Toggle = SAUTTab:CreateToggle({
    Name = "Auto Click Dusttale",
    CurrentValue = false,
-   Flag = "ACADTT", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "ACDTT", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-        ACADTToggleEnabled = Value
+        ACDTToggleEnabled = Value
 
-        if ACAFToggleEnabled then
+        if ACDTToggleEnabled then
             task.spawn(function()
                 while ACDTToggleEnabled do
                     task.wait(0.1)
